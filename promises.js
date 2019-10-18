@@ -33,3 +33,24 @@ promiseSumListIterative([1, 2, 3, 4])
 
 promiseSumListReduce([1, 2, 3, 4])
     .then(c => console.log(c));
+
+
+//PROMISEMAP
+function promiseInc(x) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(x + 1);
+        }, 50);
+    });
+}
+
+function promiseMap(f, xs) {
+    let ys = Promise.resolve([]);
+    for (let i = 0; i < xs.length; i++) {
+        ys = ys.then(r => f(xs[i]).then(s => r.concat(s)))
+    }
+    return ys;
+}
+
+promiseMap(promiseInc, [1, 2, 3, 4])
+    .then(c => console.log(c));
