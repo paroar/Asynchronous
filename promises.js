@@ -10,7 +10,7 @@ function promiseSumListRecursive(xs, acum) {
     if (xs.length === 0) {
         return acum;
     }
-    return promiseSumListRecursive(xs.slice(1), acum.then(r => promiseAdd(xs[0], r)));
+    return promiseSumListRecursive(xs.slice(0,xs.length-1), acum.then(r => promiseAdd(xs[xs.length-1], r)));
 }
 
 function promiseSumListIterative(xs) {
